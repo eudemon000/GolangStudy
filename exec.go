@@ -6,6 +6,11 @@ import (
 	"time"
 	"fmt"
 	"Study/src/xmlStudy"
+	"Study/src/stringStudy"
+	"Study/src/regexpStudy"
+	"Study/src/channelStudy"
+	"Study/src/httpStudy"
+	"Study/src/securityStudy"
 )
 
 func main() {
@@ -31,6 +36,47 @@ func main() {
 	jsonTest()
 	unMarshalTest()
 	XMLMarshal()
+	stringStudy.StrContains("I am your father", "m y")
+	stringStudy.StrContains("", "")
+	stringStudy.StrContainsAny("I am your father", "a1")
+	stringStudy.StrContainsRune("I am your father", 'I')
+	stringStudy.StrHasPrefix("I am your father", "I")
+	stringStudy.StrTrimSpace("   I am your father   ")
+	stringStudy.StrTrim("I am your father", "father")
+	stringStudy.StrCount("I am your fahter", "a")
+	stringStudy.StrCompare("I am your father", "I a")
+	stringStudy.StrEqualFold("I am your father", "I am your father")
+	stringStudy.StrFields("I am your father")
+	stringStudy.StrFieldsFunc("I am your father")
+	stringStudy.StrHasSuffix("I am your father", "father")
+	stringStudy.StrIndex("I am your father", "r1")
+	stringStudy.StrIndexAny("I am your father", "er")
+	stringStudy.StrIndexByte("I am your father", 'a')
+	stringStudy.StrIndexFunc("I am your father")
+	stringStudy.StrIndexRune("I am your father", 'a')
+	a := []string{"I", "am", "your", "father"}
+	stringStudy.StrJoin(a, " ")
+	stringStudy.StrLastIndex("I am your father", "r")
+	stringStudy.StrMap("I am your father")
+	stringStudy.StrRepeat("I am your father", 3)
+	stringStudy.StrReplace("I am your fatheraaaaaaaaaaaaaaaaaaaaaaaa", "a", "b", 0)
+	stringStudy.StrTitle("I am your father")
+	stringStudy.StrToLower("I am your father")
+	stringStudy.StrToUpper("I am your father")
+	stringStudy.StrSplit("I am your father", " ")
+	stringStudy.StrSplitAfter("I am your father", "a")
+	regexpStudy.RegeMatchString("a", "I am your father")
+	channelStudy.ChannelTest()
+	//channelStudy.SelectTest()
+	//channelStudy.SelectTest2()
+	//channelStudy.TimeOut()
+	//A()
+	//socketStudy.TcpStudy()
+	//httpStudy.HttpGet()
+	httpStudy.HttpHead()
+	securityStudy.Md5()
+	securityStudy.Sha1()
+	securityStudy.FileMd5()
 }
 
 func jsonTest() {
@@ -57,4 +103,19 @@ func XMLMarshal() {
 	t.School = "李四中学"
 	t.Brithday = xmlStudy.XmlTime(time.Now())
 	xmlStudy.XMLMarshal(t)
+}
+
+func A() {
+	aaa := make(chan *channelStudy.PipeData)
+	pip := new(channelStudy.PipeData)
+	pip.Value = 1
+	pip.Next = make(chan int)
+	//pip.Next <- 2
+	pip.Handler = func(a int) int {
+		fmt.Println("传递过来的值是：", a)
+		return 0
+	}
+	aaa <- pip
+	channelStudy.Handler(aaa)
+
 }
